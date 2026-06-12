@@ -1,12 +1,5 @@
 # kommunikasjon og protokoll
 
-pakke format
-
-header
-
-størrelse       betydning
-8 bits          type 
-24 bits         lengde 
 
 melding typer
 verdi   betydning
@@ -18,7 +11,24 @@ verdi   betydning
 0x06    ERR_PRICE
 0x07    ERR_STOCK
 
+pakke format
+
+header
+
+størrelse       betydning
+8 bits          type 
+24 bits         lengde 
+
 payloaad
+
+produkt
+størrelse       betydning
+32 bits         pris
+32 bits         produkt kvantitet
+8 bits          navn lengde 
+N bits          navn
+16 bits         beskrivelse lengde
+N bits          beskrivelse
 
 REQ_PRODUCTS
 None
@@ -27,23 +37,12 @@ RSP_PRODUCTS
 størrelse       betydning
 16 bits         antall produkt 
 
-produkt
-størrelse       betydning
-32 bits         pris
-8 bits          navn lengde 
-N bits          navn
-16 bits         beskrivelse lengde
-N bits          beskrivelse
-
 REQ_PURCHASE
 størrelse       betydning
-32 bits         pris
-8 bits          navn lengde 
-N bits          navn
+16 bits         antall produkt
 
 RSP_PURHASE
 None
-
 
 ERR_PRODUCT
 None
@@ -55,3 +54,21 @@ størrelse       betydning
 ERR_STOCK
 størrelse       betydning
 32 bits         mengde i lager
+
+
+melding beskrivelse
+
+REQ_PRODUCTS
+forespørsel til server om å gi informasjon om produkter som er tilgjengelig
+
+RSP_PRODUCTS
+respons til REQ_PRODUCTS, informasjon om produkter og deres pris, produkt kvantitet
+navn og beskrivelse
+
+REQ_PURCHASE
+forespørsel om 
+
+RSP_PURHASE
+ERR_PRODUCT
+ERR_PRICE
+ERR_STOCK
