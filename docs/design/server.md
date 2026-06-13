@@ -32,7 +32,7 @@ classDiagram
     class TransaksjonsVindu {
         -transaksjon_korter List<TransaksjonsKort>
     }
-    class TransaksjonKort {
+    class TransaksjonsKort {
         -transaksjons_id int
         +vis_detalje() void
     }
@@ -42,12 +42,19 @@ classDiagram
         -dato datetime
         -status OrdreStatus
     }
-    enum OrdreStatus {
+    class OrdreStatus {
+        <<enumeration>>
         NY
         BEHANDLES
         SENDT
     }
-
+    VinduManager "1"--"1" ProduktVindu
+    VinduManager "1"--"1" RedigerProduktVindu
+    VinduManager "1"--"1" DetaljeVindu
+    VinduManager "1"--"1" TransaksjonsVindu 
+    ProduktVindu "1"--"0..*" ProduktKort
+    TransaksjonsVindu  "1"--"0..*" TransaksjonsKort
+    DetaljeVindu --> OrdreStatus
     
 ```
 
