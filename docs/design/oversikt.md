@@ -22,7 +22,7 @@ graph LR
 ```
 
 Domene modell for hele klient system. Hoved komponentene i modellen er Klient, Kontroll 
-og Vindu Manager som kobler til hverandre. Mer beskrivende klassediagram ligger i 
+og VinduManager som kobler til hverandre. Mer beskrivende klassediagram ligger i 
 klient.md
 
 ```mermaid
@@ -65,3 +65,50 @@ classDiagram
     Kontroll "1"--"1" VinduManager
     VognManager "1"--"0..*" Produkt
 ```
+
+Domene modell for hele server system. Hoved komponentene i modellen er Server, Kontroll 
+og VinduManager som kobler til hverandre. Mer beskrivende klassediagram ligger i 
+server.md
+
+```mermaid
+
+%% Server View
+
+classDiagram
+    class VinduManager {}
+    class ProduktVindu {}
+    class ProduktKort {}
+    class RedigerProduktVindu {}
+    class TransaksjonsVindu {}
+    class TransaksjonsKort {}
+    class DetaljeVindu {}
+    class OrdreStatus {}
+
+    VinduManager "1"--"1" ProduktVindu
+    VinduManager "1"--"1" RedigerProduktVindu
+    VinduManager "1"--"1" DetaljeVindu
+    VinduManager "1"--"1" TransaksjonsVindu 
+    ProduktVindu "1"--"0..*" ProduktKort
+    TransaksjonsVindu  "1"--"0..*" TransaksjonsKort
+    DetaljeVindu --> OrdreStatus
+
+%% Server Kontroll
+
+    class Kontroll {}
+
+%% Server Modell
+
+    class Server {}
+    class ProduktManager {}
+    class Produkt {}
+    class ButikkSocket {}
+    Server "1"--"1" ButikkSocket    
+    Server "1"--"1" ProduktManager
+    ProduktManager "1"--"0..*" Produkt
+
+    VinduManager "1"--"1" Kontroll
+    Kontroll "1"--"1" Server
+
+```
+
+
