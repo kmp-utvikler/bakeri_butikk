@@ -4,23 +4,24 @@ Klient view
 ```mermaid
 classDiagram
     class VinduManager {
-        -butikk_vindu
-        -vogn_vindu
+        -butikk_vindu ButikkVindu
+        -vogn_vindu VognVindu
     }
     class ButikkVindu {
-        -produkt_korter
-        +legg_til_vogn(Produkt) void
+        -produkt_korter List<Produkt>
+        +oppdater_produkter() void
+        +legg_til_vogn(Produkt produkt) void
     }
     class ProduktKort {
-        -produkt_id
-        -produkt_navn
-        -produkt_pris
-        -produkt_beskrivelse
+        -produkt_id int
+        -produkt_navn string
+        -produkt_pris float
+        -produkt_beskrivelse string
     }
     class VognVindu {
-        -produkt_i_vogn
-        +fjern_fra_vogn(Produkt) void
-        +kjop_produkter()
+        -produkt_i_vogn List<Produkter>
+        +fjern_fra_vogn(Produkt produkt) void
+        +kjop_produkter(List<Produkt> produkter) void
     }
     VinduManager "1"--"1" ButikkVindu
     VinduManager "1"--"1" VognVindu
@@ -36,9 +37,9 @@ classDiagram
     class Kontroll {
         +hent_produkter() Produkter
         +hent_vogn() Produkter
-        +legg_til_vogn(Produkt) void
-        +fjern_fra_vogn(Produkt) void
-        +kjøp_produkter() void
+        +legg_til_vogn(Produkt produkt) void
+        +fjern_fra_vogn(Produkt produkt) void
+        +kjøp_produkter(List<Produkt> produkt) void
     }
 ```
 
@@ -48,39 +49,42 @@ KLient Modell
 
 classDiagram
     class Klient {
-        -produkter
-        -butikk_socket
+        -produkter List<Produkt>
+        -butikk_socket ButikkSocket
         +lag_socket() ButikkSocket
         +last_inn_produkter() Produkter
         +hent_produkter() Produkter
-        +hent_vogn
+        +hent_vogn() List<Produkt>
         +kjop_produkter() void
     }
     class VognManager {
-        -produkter_i_vogn
-        +legg_til_produkt()
-        +fjern_produkt()
+        -produkter_i_vogn List<Produkt>
+        +legg_til_produkt(Produkt produkt) void
+        +fjern_produkt(Produkt produkt) void
         +hent_produkter() Produkter
     }
     class Produkt {
-        -produktID
-        -navn
-        -pris
-        -beskrivelse
+        -produktID int
+        -navn string
+        -pris float
+        -beskrivelse string
+        -antall int
         +hent_info() string
         +hent_id() int
         +hent_navn() string
         +hent_pris() float
         +hent_beskrivelse() string
+        +hent_antall() int
     }
     class ButikkSocket {
-        -port
-        -ip_address
-        -klient_socket
+        -port int
+        -ip_address string
+        -klient_socket socket.socket
         +koble_til_server() void
+        +lytt_etter_forbindelse() void
         +les_fra_server() bytes
         +skriv_til_server() void
-        +oversett_bytes()
+        +oversett_bytes() void
     }
     Klient "1" -- "1" ButikkSocket    
     Klient "1" -- "1" VognManager    
