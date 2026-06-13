@@ -63,5 +63,5 @@ classDiagram
 
     Klient "1"--"1" Kontroll
     Kontroll "1"--"1" VinduManager
-
+    VognManager "1"--"0..*" Produkt
 ```
