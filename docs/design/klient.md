@@ -86,8 +86,9 @@ classDiagram
         +skriv_til_server() void
         +oversett_bytes() void
     }
-    Klient "1" -- "1" ButikkSocket    
     Klient "1" -- "1" VognManager    
     Klient "1"--"0..*" Produkt
+    VognManager "1"--"0..*" Produkt
+    Klient "1" -- "1" ButikkSocket    
 
 ```
